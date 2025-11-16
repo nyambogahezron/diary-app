@@ -10,16 +10,15 @@
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "web": "expo start --web",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-community/slider": "5.0.1",
+    "babel-plugin-inline-import": "^3.0.0",
     "date-fns": "^3.6.0",
-    "drizzle-kit": "^0.30.0",
-    "drizzle-orm": "^0.36.4",
+    "drizzle-kit": "^0.31.7",
+    "drizzle-orm": "^0.44.7",
     "expo": "^54.0.23",
     "expo-av": "~16.0.7",
     "expo-constants": "~18.0.10",

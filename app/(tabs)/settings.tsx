@@ -12,7 +12,6 @@ export default function SettingsScreen() {
     theme,
     fontSize,
     reminderEnabled,
-    reminderTime,
     loadSettings,
     updateSettings,
   } = useSettingsStore();
@@ -23,7 +22,7 @@ export default function SettingsScreen() {
 
   useEffect(() => {
     loadSettings();
-  }, []);
+  }, [loadSettings]);
 
   const handleLogout = () => {
     Alert.alert('Logout', 'Are you sure you want to logout?', [
@@ -134,7 +133,11 @@ export default function SettingsScreen() {
 
           <TouchableOpacity
             className="flex-row items-center justify-between px-4 py-3 border-t border-gray-200 dark:border-gray-700"
-            onPress={() => router.push('/settings/change-pin')}
+            onPress={() => {
+              // TODO: Implement change PIN functionality
+              // router.push('/settings/change-pin')
+              console.log('Change PIN functionality not yet implemented');
+            }}
           >
             <Text className="text-gray-900 dark:text-white font-medium">Change PIN</Text>
             <Ionicons name="chevron-forward" size={20} color="#6B7280" />

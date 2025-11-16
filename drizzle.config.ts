@@ -1,12 +1,9 @@
-import type { Config } from 'drizzle-kit';
+import { defineConfig } from 'drizzle-kit';
 
-export default {
-  schema: './db/schema.ts',
-  out: './drizzle',
+export default defineConfig({
   dialect: 'sqlite',
   driver: 'expo',
-  dbCredentials: {
-    url: './diary.db',
-  },
-} satisfies Config;
+  schema: './db/schema.ts',
+  out: './drizzle',
+});
 

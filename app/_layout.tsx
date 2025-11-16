@@ -8,7 +8,7 @@ import { initializeTemplates } from '../utils/templates';
 import './global.css';
 
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
-import migrations from '../drizzle/migrations.js';
+import migrations from '@/drizzle/migrations';
 import { db } from '../db/connection';
 import { useDrizzleStudio } from 'expo-drizzle-studio-plugin';
 import * as SystemUI from 'expo-system-ui';
@@ -95,7 +95,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="entry/[id]" />
         <Stack.Screen name="entry/new" />
-        <Stack.Screen name="settings" />
       </Stack>
     </SafeAreaProvider>
   );
