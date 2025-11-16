@@ -15,7 +15,11 @@ import { useDrizzleStudio } from 'expo-drizzle-studio-plugin';
 import * as SystemUI from 'expo-system-ui';
 import * as SplashScreen from 'expo-splash-screen';
 
-// Keep splash screen visible while we load resources
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+}); 
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {

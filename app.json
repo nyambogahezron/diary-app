@@ -4,8 +4,46 @@
     "slug": "diary",
     "scheme": "diary",
     "version": "1.0.0",
-    "experiments": {
-      "tsconfigPaths": true
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.diary.app",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "The app accesses your photos to let you attach them to diary entries.",
+        "NSCameraUsageDescription": "The app accesses your camera to let you take photos for diary entries.",
+        "NSMicrophoneUsageDescription": "The app accesses your microphone to let you record audio for diary entries."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#C9C5C5",
+        "foregroundImage": "./assets/adaptive-icon/foreground.png",
+        "backgroundImage": "./assets/adaptive-icon/background.png",
+        "monochromeImage": "./assets/adaptive-icon/background.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.diary.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "android.permission.ACCESS_MEDIA_LOCATION",
+        "android.permission.READ_MEDIA_AUDIO",
+        "android.permission.READ_MEDIA_IMAGES"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "output": "static",
+      "bundler": "metro"
     },
     "plugins": [
       "expo-router",
@@ -40,47 +78,46 @@
             "useSQLCipher": false
           },
           "ios": {
-            "customBuildFlags": ["-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"]
+            "customBuildFlags": [
+              "-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"
+            ]
           }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#c9c5c5",
+          "image": "./assets/splash-icon.png",
+          "dark": {
+            "image": "./assets/splash-icon-dark.png",
+            "backgroundColor": "#000000"
+          },
+          "imageWidth": 200
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+          "isAccessMediaLocationEnabled": true,
+          "granularPermissions": [
+            "audio",
+            "photo"
+          ]
         }
       ]
     ],
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.diary.app",
-      "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "The app accesses your photos to let you attach them to diary entries.",
-        "NSCameraUsageDescription": "The app accesses your camera to let you take photos for diary entries.",
-        "NSMicrophoneUsageDescription": "The app accesses your microphone to let you record audio for diary entries."
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c015a58f-b1e7-4b0d-9064-03e8134e2adb"
       }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.diary.app",
-      "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "RECORD_AUDIO"
-      ]
-    },
-    "web": {
-      "favicon": "./assets/favicon.png",
-      "bundler": "metro"
     }
   }
 }
