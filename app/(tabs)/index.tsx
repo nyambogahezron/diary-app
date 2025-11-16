@@ -28,11 +28,11 @@ export default function HomeScreen() {
 
   const renderEntry = ({ item }: { item: typeof entries[0] }) => (
     <TouchableOpacity
-      className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-3 shadow-sm border border-gray-200 dark:border-gray-700"
+      className="bg-card rounded-lg p-4 mb-3 shadow-sm border border-border"
       onPress={() => router.push(`/entry/${item.id}`)}
     >
       <View className="flex-row items-center justify-between mb-2">
-        <Text className="text-lg font-semibold text-gray-900 dark:text-white flex-1">
+        <Text className="text-lg font-semibold text-card-foreground flex-1">
           {item.title || 'Untitled Entry'}
         </Text>
         {item.isLocked && (
@@ -43,7 +43,7 @@ export default function HomeScreen() {
         )}
       </View>
       <Text
-        className="text-gray-600 dark:text-gray-400 text-sm mb-2"
+        className="text-muted-foreground text-sm mb-2"
         numberOfLines={2}
       >
         {item.content.replace(/[#*\[\]]/g, '').substring(0, 100)}...

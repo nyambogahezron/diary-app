@@ -3,9 +3,6 @@ import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } fro
 import { useRouter } from 'expo-router';
 import { useAuthStore } from '../../store/useAuthStore';
 import { StatusBar } from 'expo-status-bar';
-import * as SecureStore from 'expo-secure-store';
-
-const ONBOARDING_KEY = 'has_seen_onboarding';
 
 export default function LoginScreen() {
   const [pin, setPin] = useState('');
@@ -21,36 +18,51 @@ export default function LoginScreen() {
     authenticateWithBiometric,
     authenticateWithPin,
     checkAuth,
+    checkOnboarding,
+    tryAutoAuthenticate,
   } = useAuthStore();
 
   useEffect(() => {
-    checkAuth();
-    checkOnboarding();
-  }, []);
+    const initializeAuth = async () => {
+      try {
+        // First check if user has seen onboarding
+        const hasCompleted = await checkOnboarding();
+        if (!hasCompleted) {
+          router.replace('/(auth)/onboarding');
+          return;
+        }
 
-  const checkOnboarding = async () => {
-    try {
-      const hasSeenOnboarding = await SecureStore.getItemAsync(ONBOARDING_KEY);
-      if (!hasSeenOnboarding) {
-        router.replace('/(auth)/onboarding');
-        return;
+        // Check auth capabilities (PIN, biometric)
+        await checkAuth();
+        
+        // Try to auto-authenticate with existing session
+        const autoAuthSuccess = await tryAutoAuthenticate();
+        
+        if (autoAuthSuccess) {
+          router.replace('/(tabs)');
+          return;
+        }
+        
+        setCheckingOnboarding(false);
+      } catch (error) {
+        console.error('Error during auth initialization:', error);
+        setCheckingOnboarding(false);
       }
-      setCheckingOnboarding(false);
-    } catch (error) {
-      console.error('Error checking onboarding status:', error);
-      setCheckingOnboarding(false);
-    }
-  };
+    };
+
+    initializeAuth();
+  }, [checkOnboarding, checkAuth, tryAutoAuthenticate, router]);
 
   useEffect(() => {
-    if (checkingOnboarding) return;
+    if (checkingOnboarding || authLoading) return;
     
     if (isAuthenticated) {
       router.replace('/(tabs)');
-    } else if (!pinEnabled && !authLoading) {
+    } else if (!pinEnabled) {
+      // No PIN set up, redirect to setup
       router.replace('/(auth)/setup');
     }
-  }, [isAuthenticated, pinEnabled, authLoading, checkingOnboarding]);
+  }, [isAuthenticated, pinEnabled, authLoading, checkingOnboarding, router]);
 
   const handleBiometric = async () => {
     setIsLoading(true);

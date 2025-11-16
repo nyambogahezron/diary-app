@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/useAuthStore';
 import { useSettingsStore } from '../store/useSettingsStore';
+import { ThemeProvider } from '../components/ThemeProvider';
 import { initializeTemplates } from '../utils/templates';
 import './global.css';
 
@@ -18,7 +19,7 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { checkAuth } = useAuthStore();
+  const { checkAuth, tryAutoAuthenticate } = useAuthStore();
   const { loadSettings } = useSettingsStore();
   const { success, error } = useMigrations(db, migrations);
   const [appIsReady, setAppIsReady] = useState(false);
@@ -69,6 +70,8 @@ export default function RootLayout() {
           await initializeTemplates();
           await checkAuth();
           await loadSettings();
+          // Try auto-authentication on app start
+          await tryAutoAuthenticate();
           onLayoutRootView();
         }
       } catch (error) {
@@ -78,7 +81,7 @@ export default function RootLayout() {
     if (success) {
       init();
     }
-  }, [success, checkAuth, loadSettings, onLayoutRootView]);
+  }, [success, checkAuth, loadSettings, tryAutoAuthenticate, onLayoutRootView]);
 
   if (!appIsReady || !success) {
     return null;
@@ -86,16 +89,18 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="entry/[id]" />
-        <Stack.Screen name="entry/new" />
-      </Stack>
+      <ThemeProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="entry/[id]" />
+          <Stack.Screen name="entry/new" />
+        </Stack>
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }

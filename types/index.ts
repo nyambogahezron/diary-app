@@ -60,7 +60,7 @@ export interface Reminder {
 }
 
 export interface AppSettings {
-  theme: 'light' | 'dark' | 'auto';
+  theme: 'light' | 'dark' | 'auto' | 'nature' | 'ocean' | 'sunset';
   fontSize: 'small' | 'medium' | 'large';
   biometricEnabled: boolean;
   pinEnabled: boolean;

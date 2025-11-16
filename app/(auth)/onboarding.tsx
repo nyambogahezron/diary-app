@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
-  StyleSheet,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -19,10 +18,9 @@ import Animated, {
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
-import * as SecureStore from 'expo-secure-store';
+import { useAuthStore } from '../../store/useAuthStore';
 
 const { width, height } = Dimensions.get('window');
-const ONBOARDING_KEY = 'has_seen_onboarding';
 
 const onboardingData = [
   {
@@ -57,6 +55,7 @@ const onboardingData = [
 
 export default function OnboardingScreen() {
   const router = useRouter();
+  const { markOnboardingComplete } = useAuthStore();
   const scrollViewRef = useRef<ScrollView>(null);
   const scrollX = useSharedValue(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -86,7 +85,7 @@ export default function OnboardingScreen() {
 
   const handleFinish = async () => {
     try {
-      await SecureStore.setItemAsync(ONBOARDING_KEY, 'true');
+      await markOnboardingComplete();
       router.replace('/(auth)/setup');
     } catch (error) {
       console.error('Error saving onboarding status:', error);

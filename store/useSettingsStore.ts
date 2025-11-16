@@ -9,7 +9,7 @@ interface SettingsState extends AppSettings {
 }
 
 const defaultSettings: AppSettings = {
-  theme: 'auto',
+  theme: 'light',
   fontSize: 'medium',
   biometricEnabled: false,
   pinEnabled: false,
@@ -25,7 +25,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     try {
       const settings = await database.getAllSettings();
       const parsedSettings: AppSettings = {
-        theme: (settings.theme as AppSettings['theme']) || 'auto',
+        theme: (settings.theme as AppSettings['theme']) || 'light',
         fontSize: (settings.fontSize as AppSettings['fontSize']) || 'medium',
         biometricEnabled: settings.biometricEnabled === 'true',
         pinEnabled: settings.pinEnabled === 'true',
