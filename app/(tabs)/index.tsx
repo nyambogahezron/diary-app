@@ -35,9 +35,6 @@ export default function HomeScreen() {
         <Text className="text-lg font-semibold text-card-foreground flex-1">
           {item.title || 'Untitled Entry'}
         </Text>
-        {item.isLocked && (
-          <Ionicons name="lock-closed" size={16} color="#6B7280" className="ml-2" />
-        )}
         {item.moodEmoji && (
           <Text className="text-xl ml-2">{item.moodEmoji}</Text>
         )}

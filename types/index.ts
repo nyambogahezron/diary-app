@@ -7,8 +7,6 @@ export interface DiaryEntry {
   updatedAt: string;
   mood?: number; // 1-5 or emoji code
   moodEmoji?: string;
-  isLocked: boolean;
-  isVault: boolean;
   templateId?: string;
 }
 
@@ -60,7 +58,7 @@ export interface Reminder {
 }
 
 export interface AppSettings {
-  theme: 'light' | 'dark' | 'auto' | 'nature' | 'ocean' | 'sunset';
+  theme: 'dark';
   fontSize: 'small' | 'medium' | 'large';
   biometricEnabled: boolean;
   pinEnabled: boolean;
@@ -76,7 +74,5 @@ export interface SearchFilters {
   endDate?: string;
   tags?: string[];
   mood?: number;
-  isLocked?: boolean;
-  isVault?: boolean;
 }
 

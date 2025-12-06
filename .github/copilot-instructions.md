@@ -24,8 +24,6 @@ This is an **Expo Router** React Native app with SQLite database using **Drizzle
 id: text('id').primaryKey(),
 // Dates stored as ISO strings
 createdAt: text('created_at').notNull(),
-// Boolean flags use integer mode
-isLocked: integer('is_locked', { mode: 'boolean' }).notNull().default(false),
 ```
 
 ### 2. State Management Pattern
@@ -49,7 +47,6 @@ const useEntriesStore = create<EntriesState>((set, get) => ({
 
 ### 3. Expo Router Structure
 - `app/_layout.tsx`: Root layout with migration initialization
-- `app/(auth)/`: Authentication screens (onboarding, login, setup)
 - `app/(tabs)/`: Main tab navigation (home, calendar, search, mood, timeline, settings)
 - `app/entry/[id].tsx` & `app/entry/new.tsx`: Dynamic entry routes
 
@@ -82,12 +79,6 @@ const useEntriesStore = create<EntriesState>((set, get) => ({
 - Use **NativeWind** classes: `className="bg-blue-500 text-white p-4"`
 - Global styles in `app/global.css`
 - Tailwind config in `tailwind.config.js`
-
-### Security & Privacy
-- Biometric auth via `expo-local-authentication`
-- Secure storage via `expo-secure-store` 
-- Entry-level locking with `isLocked` flag
-- Vault entries with `isVault` flag
 
 ## Key Dependencies
 

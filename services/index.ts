@@ -47,8 +47,6 @@ export const createEntry = async (entry: DiaryEntry): Promise<void> => {
     updatedAt: entry.updatedAt,
     mood: entry.mood || null,
     moodEmoji: entry.moodEmoji || null,
-    isLocked: entry.isLocked,
-    isVault: entry.isVault,
     templateId: entry.templateId || null,
   });
 };
@@ -67,8 +65,6 @@ export const getEntry = async (id: string): Promise<DiaryEntry | null> => {
     updatedAt: entry.updatedAt,
     mood: entry.mood || undefined,
     moodEmoji: entry.moodEmoji || undefined,
-    isLocked: entry.isLocked,
-    isVault: entry.isVault,
     templateId: entry.templateId || undefined,
   };
 };
@@ -88,8 +84,6 @@ export const getAllEntries = async (): Promise<DiaryEntry[]> => {
     updatedAt: entry.updatedAt,
     mood: entry.mood || undefined,
     moodEmoji: entry.moodEmoji || undefined,
-    isLocked: entry.isLocked,
-    isVault: entry.isVault,
     templateId: entry.templateId || undefined,
   }));
 };
@@ -113,8 +107,6 @@ export const getEntriesByDateRange = async (
     updatedAt: entry.updatedAt,
     mood: entry.mood || undefined,
     moodEmoji: entry.moodEmoji || undefined,
-    isLocked: entry.isLocked,
-    isVault: entry.isVault,
     templateId: entry.templateId || undefined,
   }));
 };
@@ -138,8 +130,6 @@ export const searchEntries = async (query: string): Promise<DiaryEntry[]> => {
     updatedAt: entry.updatedAt,
     mood: entry.mood || undefined,
     moodEmoji: entry.moodEmoji || undefined,
-    isLocked: entry.isLocked,
-    isVault: entry.isVault,
     templateId: entry.templateId || undefined,
   }));
 };
@@ -154,8 +144,6 @@ export const updateEntry = async (entry: DiaryEntry): Promise<void> => {
       updatedAt: entry.updatedAt,
       mood: entry.mood || null,
       moodEmoji: entry.moodEmoji || null,
-      isLocked: entry.isLocked,
-      isVault: entry.isVault,
       templateId: entry.templateId || null,
     })
     .where(eq(entries.id, entry.id));
@@ -181,8 +169,6 @@ export const getEntriesByDate = async (date: string): Promise<DiaryEntry[]> => {
     updatedAt: entry.updatedAt,
     mood: entry.mood || undefined,
     moodEmoji: entry.moodEmoji || undefined,
-    isLocked: entry.isLocked,
-    isVault: entry.isVault,
     templateId: entry.templateId || undefined,
   }));
 };

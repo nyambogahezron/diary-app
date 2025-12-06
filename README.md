@@ -21,12 +21,7 @@ A comprehensive, feature-rich diary/journal application built with React Native 
    - Filter by date range
    - Advanced filtering options
 
-4. **Secure Access**
-   - PIN/Password protection (local storage)
-   - Biometric unlock (Fingerprint / FaceID)
-   - Secure entry locking
-
-5. **Themes & Appearance**
+4. **Themes & Appearance**
    - Light/Dark mode support
    - Auto theme based on system settings
    - Font size adjustments (small, medium, large)
@@ -90,30 +85,25 @@ A comprehensive, feature-rich diary/journal application built with React Native 
 
 ### ⭐ Premium / Unique Features
 
-16. **Private Spaces**
-    - Lock specific entries
-    - Separate "vault" area
-    - Enhanced security
-
-17. **Templates**
+16. **Templates**
     - Daily reflection template
     - Bullet journal template
     - Gratitude journaling template
     - Dream journal template
     - Custom templates
 
-18. **Timeline View**
+17. **Timeline View**
     - Scrollable timeline of all entries
     - Chronological organization
     - Visual timeline representation
 
-19. **Multi-Media Journal**
+18. **Multi-Media Journal**
     - Drawing canvas for sketches (placeholder)
     - Stickers/emojis
     - Voice memories
     - Rich media support
 
-20. **Sync With Wearables** (Future)
+19. **Sync With Wearables** (Future)
     - Quick voice notes from smartwatch
     - Auto-tag mood from wearable data
 
@@ -169,14 +159,12 @@ npm run web
 ```
 diary-app/
 ├── app/                    # Expo Router app directory
-│   ├── (auth)/            # Authentication screens
 │   ├── (tabs)/            # Main tab navigation
 │   └── entry/             # Entry detail and creation
 ├── components/            # Reusable components
 ├── db/                    # Database layer
 │   └── database.ts        # SQLite database operations
 ├── store/                 # State management (Zustand)
-│   ├── useAuthStore.ts    # Authentication state
 │   ├── useEntriesStore.ts # Entries state
 │   └── useSettingsStore.ts # Settings state
 ├── types/                 # TypeScript type definitions
@@ -201,13 +189,6 @@ The app uses SQLite with the following main tables:
 - **reminders**: Notification reminders
 - **settings**: App settings
 
-## 🔐 Security
-
-- PIN/Password stored securely using Expo SecureStore
-- Biometric authentication via Expo Local Authentication
-- Entry-level locking support
-- Vault for sensitive entries
-
 ## 🎨 Theming
 
 The app supports:
@@ -222,8 +203,6 @@ Key dependencies:
 - **expo**: Expo SDK
 - **expo-router**: File-based routing
 - **expo-sqlite**: Local database
-- **expo-local-authentication**: Biometric auth
-- **expo-secure-store**: Secure storage
 - **expo-image-picker**: Image selection
 - **expo-document-picker**: File selection
 - **expo-notifications**: Push notifications

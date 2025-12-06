@@ -31,8 +31,6 @@ export default function NewEntryScreen() {
         date,
         mood: selectedMood,
         moodEmoji: selectedMood ? moodEmojis[selectedMood - 1] : undefined,
-        isLocked: false,
-        isVault: false,
       });
       router.back();
     } catch (error) {
