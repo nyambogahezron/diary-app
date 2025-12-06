@@ -88,12 +88,6 @@ export const useEntriesStore = create<EntriesState>((set, get) => ({
       if (filters.mood !== undefined) {
         entries = entries.filter((e) => e.mood === filters.mood);
       }
-      if (filters.isLocked !== undefined) {
-        entries = entries.filter((e) => e.isLocked === filters.isLocked);
-      }
-      if (filters.isVault !== undefined) {
-        entries = entries.filter((e) => e.isVault === filters.isVault);
-      }
 
       return entries;
     } catch (error) {

@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Platform } from 'react-native';
 import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useAuthStore } from '../store/useAuthStore';
 import { useSettingsStore } from '../store/useSettingsStore';
 import { ThemeProvider } from '../components/ThemeProvider';
 import { initializeTemplates } from '../utils/templates';
@@ -23,7 +22,6 @@ SplashScreen.setOptions({
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { checkAuth, tryAutoAuthenticate } = useAuthStore();
   const { loadSettings } = useSettingsStore();
   const { success, error } = useMigrations(db, migrations);
   const [appIsReady, setAppIsReady] = useState(false);
@@ -72,10 +70,7 @@ export default function RootLayout() {
       try {
         if (success) {
           await initializeTemplates();
-          await checkAuth();
           await loadSettings();
-          // Try auto-authentication on app start
-          await tryAutoAuthenticate();
           onLayoutRootView();
         }
       } catch (error) {
@@ -85,7 +80,7 @@ export default function RootLayout() {
     if (success) {
       init();
     }
-  }, [success, checkAuth, loadSettings, tryAutoAuthenticate, onLayoutRootView]);
+  }, [success, loadSettings, onLayoutRootView]);
 
   if (!appIsReady || !success) {
     return null;
@@ -99,7 +94,7 @@ export default function RootLayout() {
             headerShown: false,
           }}
         >
-          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="index" />
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="entry/[id]" />
           <Stack.Screen name="entry/new" />

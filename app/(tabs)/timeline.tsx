@@ -45,9 +45,6 @@ export default function TimelineScreen() {
         <Text className="text-base font-semibold text-gray-900 dark:text-white flex-1">
           {entry.title || 'Untitled Entry'}
         </Text>
-        {entry.isLocked && (
-          <Ionicons name="lock-closed" size={16} color="#6B7280" className="ml-2" />
-        )}
         {entry.moodEmoji && <Text className="text-xl ml-2">{entry.moodEmoji}</Text>}
       </View>
       <Text className="text-gray-600 dark:text-gray-400 text-sm" numberOfLines={2}>

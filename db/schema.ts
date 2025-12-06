@@ -11,8 +11,6 @@ export const entries = sqliteTable('entries', {
   updatedAt: text('updated_at').notNull(),
   mood: integer('mood'),
   moodEmoji: text('mood_emoji'),
-  isLocked: integer('is_locked', { mode: 'boolean' }).notNull().default(false),
-  isVault: integer('is_vault', { mode: 'boolean' }).notNull().default(false),
   templateId: text('template_id'),
 });
 
