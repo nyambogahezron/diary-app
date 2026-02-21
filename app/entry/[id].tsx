@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { View, Text, TextInput, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useEntriesStore } from '../../store/useEntriesStore';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
+import DateTimePickerComponent from '../../components/DateTimePicker';
 
 const moodEmojis = ['😢', '😕', '😐', '🙂', '😄'];
 const moodLabels = ['Very Sad', 'Sad', 'Neutral', 'Happy', 'Very Happy'];
@@ -18,7 +19,7 @@ export default function EntryDetailScreen() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedMood, setSelectedMood] = useState<number | undefined>();
-  const [date, setDate] = useState('');
+  const [dateTime, setDateTime] = useState(new Date());
 
   useEffect(() => {
     loadEntry();
@@ -32,7 +33,11 @@ export default function EntryDetailScreen() {
       setTitle(entryData.title);
       setContent(entryData.content);
       setSelectedMood(entryData.mood);
-      setDate(entryData.date);
+      try {
+        setDateTime(parseISO(entryData.date));
+      } catch {
+        setDateTime(new Date(entryData.date));
+      }
     }
   };
 
@@ -48,7 +53,7 @@ export default function EntryDetailScreen() {
         ...entry,
         title: title.trim() || 'Untitled Entry',
         content: content.trim(),
-        date,
+        date: dateTime.toISOString(),
         mood: selectedMood,
         moodEmoji: selectedMood ? moodEmojis[selectedMood - 1] : undefined,
       });
@@ -132,15 +137,19 @@ export default function EntryDetailScreen() {
               onChangeText={setTitle}
             />
 
-            <View className="mb-4">
-              <Text className="text-sm text-gray-600 dark:text-gray-400 mb-2">Date</Text>
-              <TextInput
-                className="bg-gray-100 dark:bg-gray-800 rounded-lg px-4 py-2 text-gray-900 dark:text-white"
-                value={date}
-                onChangeText={setDate}
-                placeholder="YYYY-MM-DD"
-              />
-            </View>
+            <DateTimePickerComponent
+              value={dateTime}
+              onChange={setDateTime}
+              mode="date"
+              label="Date"
+            />
+
+            <DateTimePickerComponent
+              value={dateTime}
+              onChange={setDateTime}
+              mode="time"
+              label="Time"
+            />
 
             <View className="mb-4">
               <Text className="text-sm text-gray-600 dark:text-gray-400 mb-2">Mood</Text>

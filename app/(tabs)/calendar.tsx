@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, useColorScheme } from 'react-native';
 import { Calendar, DateData } from 'react-native-calendars';
 import { useRouter } from 'expo-router';
 import { useEntriesStore } from '../../store/useEntriesStore';
@@ -8,6 +8,8 @@ import { StatusBar } from 'expo-status-bar';
 
 export default function CalendarScreen() {
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
   const { entries, getEntriesByDate } = useEntriesStore();
   const [markedDates, setMarkedDates] = useState<Record<string, any>>({});
   const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
@@ -61,21 +63,28 @@ export default function CalendarScreen() {
         onDayPress={onDayPress}
         markingType="multi-dot"
         theme={{
-          backgroundColor: '#ffffff',
-          calendarBackground: '#ffffff',
-          textSectionTitleColor: '#6B7280',
+          backgroundColor: isDark ? '#111827' : '#ffffff',
+          calendarBackground: isDark ? '#111827' : '#ffffff',
+          textSectionTitleColor: isDark ? '#9CA3AF' : '#6B7280',
           selectedDayBackgroundColor: '#2563EB',
           selectedDayTextColor: '#ffffff',
           todayTextColor: '#2563EB',
-          dayTextColor: '#1F2937',
-          textDisabledColor: '#D1D5DB',
+          dayTextColor: isDark ? '#F3F4F6' : '#1F2937',
+          textDisabledColor: isDark ? '#4B5563' : '#D1D5DB',
           dotColor: '#2563EB',
           selectedDotColor: '#ffffff',
           arrowColor: '#2563EB',
-          monthTextColor: '#1F2937',
+          monthTextColor: isDark ? '#F3F4F6' : '#1F2937',
           textDayFontWeight: '500',
           textMonthFontWeight: 'bold',
           textDayHeaderFontWeight: '600',
+          'stylesheet.calendar.header': {
+            week: {
+              marginTop: 5,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            },
+          },
         }}
         style={{
           paddingTop: 20,
